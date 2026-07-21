@@ -35,6 +35,22 @@ uv run python 01-naive-rag/ingest.py
 uv run python 01-naive-rag/ask.py "What does the Professional plan include?"
 ```
 
+## Example run
+
+A real capture lives in [`example-output.md`](example-output.md). Summary:
+
+**1. Docs question** — *What does the Professional plan include?*
+
+> The Professional plan includes REST API access, advanced export, and more seats and monitors.
+
+Correct but thin: the model only used the scattered prose that landed in top-k. The full pricing comparison table never made it into the retrieved chunks, so seats, monitor limits, and other plan cells never reached the prompt.
+
+**2. Structured question** — *What plan is Orbit Fintech on, and is SSO enabled for them?*
+
+> I do not know.
+
+Retrieval was strong (SSO, plan matrix, pilot flag language), yet the model correctly refused: Orbit Fintech’s plan and `sso` flag live in SQLite, not the doc corpus. Naive RAG has no SQL path — Stage 02 adds one.
+
 ## Try this
 
 1. **Docs-only (should work):**  
