@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project-local vector stores (rebuilt by stage ingest scripts)
+**/chroma_db/
+**/.chroma/
+
+# Generated SQLite knowledge base (recreated by scripts/seed_structured.py)
+data/structured.sqlite
